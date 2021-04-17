@@ -12,12 +12,13 @@ const dataUrl=["https://data.townofcary.org/api/v2/catalog/datasets/rdu-weather-
 function getData(url) {
 
     return new Promise((resolve, reject) => {
+
         http.get(url, (res) => {
             res.on('data', (chunk) => resolve(chunk)
             )
 
-
         })
+
     })
 
 }
@@ -27,6 +28,8 @@ function getData(url) {
     urlArray.forEach(url=>{
         getData(url).then(data=>{
             dataFile.write(url+"-----------------------------------\n"+data +"\n\n")
+     }).catch(err=>{
+         console.log(err.message)
      })
     })
 }
